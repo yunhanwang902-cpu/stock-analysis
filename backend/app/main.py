@@ -11,11 +11,14 @@ from app.config import get_settings
 from app.core.cors import add_cors_middleware
 from app.api.v1 import api_router
 from app.api.v1.websocket import broadcast_loop
+from app.database import engine, Base
+from app import models
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    # Startup: start background broadcast task
+    # Startup: create DB tables and start background broadcast task
+    Base.metadata.create_all(bind=engine)
     task = asyncio.create_task(broadcast_loop())
     yield
     # Shutdown: cancel background task

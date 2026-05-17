@@ -1,0 +1,46 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Backend: Start",
+      "type": "shell",
+      "command": "${workspaceFolder}/backend/venv/bin/uvicorn",
+      "args": [
+        "app.main:app",
+        "--host", "0.0.0.0",
+        "--port", "8000",
+        "--reload"
+      ],
+      "options": {
+        "cwd": "${workspaceFolder}/backend"
+      },
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": [],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "always",
+        "clear": true
+      }
+    },
+    {
+      "label": "Backend: Stop",
+      "type": "shell",
+      "command": "kill",
+      "args": ["$(lsof -ti:8000)"],
+      "presentation": {
+        "panel": "dedicated",
+        "reveal": "never"
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Backend: Restart",
+      "dependsOrder": "sequence",
+      "dependsOn": ["Backend: Stop", "Backend: Start"],
+      "problemMatcher": []
+    }
+  ]
+}

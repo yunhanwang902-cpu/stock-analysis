@@ -1,9 +1,10 @@
 from fastapi import APIRouter
 
-from app.api.v1 import market, stocks, quotes, websocket
+from app.api.v1 import market, stocks, quotes, websocket, auth
 
 api_router = APIRouter()
 api_router.include_router(market.router, prefix="/market", tags=["market"])
 api_router.include_router(stocks.router, prefix="/stocks", tags=["stocks"])
 api_router.include_router(quotes.router, prefix="/quotes", tags=["quotes"])
 api_router.include_router(websocket.router, prefix="/ws", tags=["websocket"])
+api_router.include_router(auth.router, prefix="/auth", tags=["auth"])

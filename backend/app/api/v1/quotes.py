@@ -13,6 +13,7 @@ async def get_quote(symbol: str):
     """Get real-time quote for a stock."""
     info = await get_stock_info(symbol.upper())
     if not info:
+        log.info(f"Quote for {symbol} not found")
         raise HTTPException(status_code=404, detail=f"Quote for {symbol} not found")
 
     return QuoteData(
